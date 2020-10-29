@@ -50,7 +50,7 @@ class Login extends React.Component {
         })
         .then((resp) => {
             this.setState({ user: resp.json() })
-            console.log(this.state.user.display_name)
+            console.log(this.state.user)
         })
         .catch((error) => {
             console.log(error, "catch the hoop")
