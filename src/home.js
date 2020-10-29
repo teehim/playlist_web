@@ -43,7 +43,7 @@ class Home extends React.Component {
         return (
             <div className={classes.root}>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} justify='flex-start'>
+                    <Grid item xs={12}>
                         <Box display='flex' alignItems="center" className={classes.profile} justifyContent="flex-end">
                             <Avatar 
                                 className={classes.avatar}
@@ -55,7 +55,7 @@ class Home extends React.Component {
                             </Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={12} justify='flex-start' className={classes.playlist_header}>
+                    <Grid item xs={12} className={classes.playlist_header}>
                         <Typography variant="h4">
                             Playlists
                         </Typography>

@@ -4,7 +4,7 @@ import { Button, Grid, Typography, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SpotifyLogin from 'react-spotify-login';
 import { clientId, redirectUri, serverUrl } from './settings';
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
   
 
 const useStyles = theme => ({
@@ -38,6 +38,10 @@ const useStyles = theme => ({
 });
 
 class Login extends React.Component {
+    constructor (props){
+        super(props);
+    }
+
     onSuccess(response) {
         this.setState({ access_token: response.access_token })
         const url = serverUrl + "/login"
@@ -55,13 +59,10 @@ class Login extends React.Component {
         })
         .then((resp) => {
             this.setState({ user: resp })
-            return <Redirect
-                to={{
-                    pathname: "/home",
-                    state: this.state
-                }}
-            />
-            
+            this.props.history.push({
+                pathname: "/home",
+                state: this.state
+            });  
         })
         .catch((error) => {
             console.log(error, "catch the hoop")
@@ -78,7 +79,7 @@ class Login extends React.Component {
                     <div className={classes.paper}>
                         <Typography component="h1" variant="h5">
                             Sign in
-                        </Typography>
+                        </Typography>                      
                         <SpotifyLogin className={classes.submit} clientId={clientId}
                             redirectUri={redirectUri}
                             onSuccess={this.onSuccess.bind(this)}
@@ -90,4 +91,4 @@ class Login extends React.Component {
     }
 }
 
-export default withStyles(useStyles)(Login);
+export default withRouter(withStyles(useStyles)(Login));
