@@ -3,10 +3,11 @@ import './index.css';
 import { Button, Grid, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SpotifyLogin from 'react-spotify-login';
-import { clientId, redirectUri } from './settings';
+import { clientId, redirectUri, serverUrl } from './settings';
  
 const onSuccess = response => {
-    fetch("http://localhost:8888/login", {
+    url = serverUrl + "/login"
+    fetch(url, {
         method: "post",
         // mode:'no-cors',
         headers: {
