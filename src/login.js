@@ -49,6 +49,9 @@ class Login extends React.Component {
             body: JSON.stringify(response)
         })
         .then((resp) => {
+            return resp
+        })
+        .then((resp) => {
             this.setState({ user: resp.json() })
             console.log(this.state.user)
         })
