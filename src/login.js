@@ -4,27 +4,6 @@ import { Button, Grid, Typography, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SpotifyLogin from 'react-spotify-login';
 import { clientId, redirectUri, serverUrl } from './settings';
- 
-const onSuccess = response => {
-    this.setState(prevState => ({ access_token: response.access_token }))
-    const url = serverUrl + "/login"
-    fetch(url, {
-        method: "post",
-        // mode:'no-cors',
-        headers: {
-            'Accept': 'application/json',
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(response)
-    })
-    .then((resp) => {
-        console.log(resp.json())
-    })
-    .catch((error) => {
-        console.log(error, "catch the hoop")
-    })
-};
-const onFailure = response => console.error(response);
 
 const useStyles = theme => ({
     root: {
@@ -57,6 +36,28 @@ const useStyles = theme => ({
 });
 
 class Login extends React.Component {
+    onSuccess(response) {
+        this.setState({ access_token: response.access_token })
+        console.log(response.access_token)
+        const url = serverUrl + "/login"
+        fetch(url, {
+            method: "post",
+            // mode:'no-cors',
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(response)
+        })
+        .then((resp) => {
+            console.log(resp.json())
+        })
+        .catch((error) => {
+            console.log(error, "catch the hoop")
+        })
+    };
+    onFailure (response) { console.error(response); }
+    
     render() {
         const { classes } = this.props;
         return (
