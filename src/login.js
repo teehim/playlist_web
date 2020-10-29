@@ -55,14 +55,13 @@ class Login extends React.Component {
         })
         .then((resp) => {
             this.setState({ user: resp })
-            return (
-                <Redirect
-                    to={{
-                        pathname: "/home",
-                        state: this.state
-                    }}
-                />
-            );
+            return <Redirect
+                to={{
+                    pathname: "/home",
+                    state: this.state
+                }}
+            />
+            
         })
         .catch((error) => {
             console.log(error, "catch the hoop")
