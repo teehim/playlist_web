@@ -1,11 +1,12 @@
 import React from 'react';
 import './index.css';
 import { Button, Grid, Typography, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import SpotifyLogin from 'react-spotify-login';
 import { clientId, redirectUri, serverUrl } from './settings';
  
 const onSuccess = response => {
+    this.setState(prevState => ({ access_token: response.access_token }))
     const url = serverUrl + "/login"
     fetch(url, {
         method: "post",
@@ -25,7 +26,7 @@ const onSuccess = response => {
 };
 const onFailure = response => console.error(response);
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = theme => ({
     root: {
         height: '100vh',
     },
@@ -53,25 +54,28 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 30px',
         fontSize: '16px'
     }
-}));
+});
 
-export default function Login() {
-    const classes = useStyles();
-    
-    return (
-        <Grid container component="main" className={classes.root}>
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                <div className={classes.paper}>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
-                    <SpotifyLogin className={classes.submit} clientId={clientId}
-                        redirectUri={redirectUri}
-                        onSuccess={onSuccess}
-                        onFailure={onFailure}/>
-                </div>
+class Login extends React.Component {
+    render() {
+        const { classes } = this.props;
+        return (
+            <Grid container component="main" className={classes.root}>
+                <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <div className={classes.paper}>
+                        <Typography component="h1" variant="h5">
+                            Sign in
+                        </Typography>
+                        <SpotifyLogin className={classes.submit} clientId={clientId}
+                            redirectUri={redirectUri}
+                            onSuccess={onSuccess}
+                            onFailure={onFailure}/>
+                    </div>
+                </Grid>
             </Grid>
-        </Grid>
-    );
+        );
+    }
 }
+
+export default withStyles(useStyles)(Login);

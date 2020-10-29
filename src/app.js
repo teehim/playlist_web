@@ -6,19 +6,30 @@ import {
 } from "react-router-dom";
 import Login from './login'
 
-export default function App() {
-    return (
-        <Router>
-            <Switch>
-                <Route exact path="/">
-                    <Login />
-                </Route>
-                <Route exact path="/home">
-                    <Home />
-                </Route>
-            </Switch>
-        </Router>
-    );
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            access_token: '',
+            user: null
+        };
+    }
+
+    render(){
+        return (
+            <Router>
+                <Switch>
+                    <Route exact path="/">
+                        <Login access_token={this.state.access_token} user={this.state.user}/>
+                    </Route>
+                    <Route exact path="/home">
+                        <Home />
+                    </Route>
+                </Switch>
+            </Router>
+        );
+    }
 }
 
 function Home() {
@@ -28,3 +39,5 @@ function Home() {
     </div>
   );
 }
+
+export default App;
