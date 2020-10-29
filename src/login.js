@@ -6,7 +6,7 @@ import SpotifyLogin from 'react-spotify-login';
 import { clientId, redirectUri, serverUrl } from './settings';
  
 const onSuccess = response => {
-    url = serverUrl + "/login"
+    const url = serverUrl + "/login"
     fetch(url, {
         method: "post",
         // mode:'no-cors',
