@@ -31,11 +31,11 @@ const useStyles = theme => ({
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
-        this.state = { 
-            access_token: props.access_token,
-            user: props.user
-        };
+        console.log(this.state)
+        // this.state = { 
+        //     access_token: props.access_token,
+        //     user: props.user
+        // };
     }
 
     render() {
