@@ -4,6 +4,8 @@ import { Button, Grid, Typography, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import SpotifyLogin from 'react-spotify-login';
 import { clientId, redirectUri, serverUrl } from './settings';
+import { Redirect } from "react-router-dom";
+  
 
 const useStyles = theme => ({
     root: {
@@ -53,7 +55,14 @@ class Login extends React.Component {
         })
         .then((resp) => {
             this.setState({ user: resp })
-            console.log(this.state.user)
+            return (
+                <Redirect
+                    to={{
+                        pathname: "/home",
+                        state: this.state
+                    }}
+                />
+            );
         })
         .catch((error) => {
             console.log(error, "catch the hoop")

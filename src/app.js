@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import Login from './login'
+import Home from './home'
 
 class App extends React.Component {
     constructor(props) {
@@ -24,20 +25,12 @@ class App extends React.Component {
                         <Login access_token={this.state.access_token} user={this.state.user}/>
                     </Route>
                     <Route exact path="/home">
-                        <Home />
+                        <Home access_token={this.state.access_token} user={this.state.user}/>
                     </Route>
                 </Switch>
             </Router>
         );
     }
-}
-
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
 }
 
 export default App;
