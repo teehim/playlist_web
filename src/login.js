@@ -39,7 +39,7 @@ class Login extends React.Component {
     async onSuccess(response) {
         this.setState({ access_token: response.access_token })
         const url = serverUrl + "/login"
-        resp = await fetch(url, {
+        const resp = await fetch(url, {
             method: "post",
             // mode:'no-cors',
             headers: {
