@@ -70,7 +70,7 @@ class Login extends React.Component {
                         </Typography>
                         <SpotifyLogin className={classes.submit} clientId={clientId}
                             redirectUri={redirectUri}
-                            onSuccess={this.onSuccess}
+                            onSuccess={this.onSuccess.bind(this)}
                             onFailure={this.onFailure}/>
                     </div>
                 </Grid>
