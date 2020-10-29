@@ -36,10 +36,10 @@ const useStyles = theme => ({
 });
 
 class Login extends React.Component {
-    onSuccess(response) {
+    async onSuccess(response) {
         this.setState({ access_token: response.access_token })
         const url = serverUrl + "/login"
-        fetch(url, {
+        resp = await fetch(url, {
             method: "post",
             // mode:'no-cors',
             headers: {
@@ -48,14 +48,15 @@ class Login extends React.Component {
             },
             body: JSON.stringify(response)
         })
-        .then((resp) => {
-            console.log(resp.json())
-            this.setState({ user: resp.json() })
-            console.log(this.state.user)
-        })
-        .catch((error) => {
-            console.log(error, "catch the hoop")
-        })
+        console.log(resp.json())
+        // .then((resp) => {
+        //     console.log(resp.json())
+        //     this.setState({ user: resp.json() })
+        //     console.log(this.state.user)
+        // })
+        // .catch((error) => {
+        //     console.log(error, "catch the hoop")
+        // })
     };
     onFailure (response) { console.error(response); }
     
