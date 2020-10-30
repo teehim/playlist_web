@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Grid, Typography, List, Avatar } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router-dom";
 
 const useStyles = theme => ({
     root: {
@@ -31,12 +32,12 @@ const useStyles = theme => ({
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props)
         console.log(props)
-        // this.state = { 
-        //     access_token: props.access_token,
-        //     user: props.user
-        // };
+        console.log(this.props.location.state)
+        this.state = { 
+            access_token: this.props.location.state.access_token,
+            user: this.props.location.state.user
+        };
     }
 
     render() {
@@ -72,4 +73,4 @@ class Home extends React.Component {
     }
 }
 
-export default withStyles(useStyles)(Home);
+export default withRouter(withStyles(useStyles)(Home));

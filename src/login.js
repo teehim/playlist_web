@@ -61,8 +61,8 @@ class Login extends React.Component {
             this.setState({ user: resp })
             this.props.history.push({
                 pathname: "/home",
-                state: this.state
-            });  
+                state: { access_token: this.state.access_token, user: resp }
+            });
         })
         .catch((error) => {
             console.log(error, "catch the hoop")
