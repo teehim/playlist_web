@@ -31,7 +31,8 @@ const useStyles = theme => ({
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.state)
+        console.log(this.props)
+        console.log(props)
         // this.state = { 
         //     access_token: props.access_token,
         //     user: props.user
