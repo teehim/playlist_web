@@ -95,7 +95,7 @@ class Home extends React.Component {
                                 return (
                                     <ListItem 
                                         className={classes.playlist_item}
-                                        onClick={this.setState({ playlist: playlist })}
+                                        onClick={() => this.setState({ playlist: playlist })}
                                         button
                                     >
                                         <ListItemAvatar>
