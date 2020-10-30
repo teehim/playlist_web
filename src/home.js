@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Typography, List, Avatar } from '@material-ui/core';
+import { Box, Grid, Typography, List, Avatar, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 
@@ -8,35 +8,43 @@ const useStyles = theme => ({
         flexGrow: 1,
     },
     avatar: {
-        width: '50px',
-        height: '50px',
-        margin: '15px 15px 15px 40px'
+        width: '35px',
+        height: '35px',
+        margin: '10px 10px 10px 0px'
     },
     profile: {
         backgroundColor: theme.palette.background.paper
     },
     name: {
-        'margin-right': '30px'
+        'margin-right': '15px'
     },
-    playlist_header: {
-        'margin-left': '15px'
+    playlist_grid: {
+        'margin-left': '30px'
     },
     playlist: {
         width: '100%',
-        maxWidth: 500,
-        backgroundColor: theme.palette.background.paper,
-        'margin-top': '10px'
-    }
+        maxWidth: 480,
+        'margin-top': '15px',
+        'padding-top': '0px'
+    },
+    playlist_item: {
+        'padding': '0px',
+        'margin-bottom': '10px',
+        backgroundColor: theme.palette.background.paper
+    },
+    playlist_avatar: {
+        width: '50px',
+        height: '50px',
+        margin: '0px 15px 0px 0px'
+    },
 })
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
-        console.log(this.props.location.state)
         this.state = { 
-            access_token: this.props.location.state.access_token,
-            user: this.props.location.state.user
+            access_token: this.props.location.state? this.props.location.state.access_token: '',
+            user: this.props.location.state? this.props.location.state.user: null
         };
     }
 
@@ -52,19 +60,30 @@ class Home extends React.Component {
                                 src={this.state.user? this.state.user.images[0].url: ''}
                                 variant={'circle'}
                             />
-                            <Typography component="h6" variant="h6" display="inline" className={classes.name}>
+                            <Typography component="h7" variant="h7" display="inline" className={classes.name}>
                                 {this.state.user? this.state.user.display_name: ""}
                             </Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={12} className={classes.playlist_header}>
+                    <Grid item xs={12} className={classes.playlist_grid}>
                         <Typography variant="h4">
                             Playlists
                         </Typography>
                         <List className={classes.playlist}>
-                            {/* {this.state.user? this.state.user.playlists.map((playlist) => {
-
-                            }):''} */}
+                            {this.state.user? this.state.user.playlists.map((playlist) => {
+                                return (
+                                    <ListItem className={classes.playlist_item} button>
+                                        <ListItemAvatar>
+                                            <Avatar
+                                                src={playlist.images.url}
+                                                variant='square'
+                                                className={classes.playlist_avatar}
+                                            />
+                                        </ListItemAvatar>
+                                        <ListItemText primary={playlist.name} secondary={playlist.track_counts + ' Songs'} />
+                                    </ListItem>
+                                );
+                            }):''}
                         </List>
                     </Grid>
                 </Grid>
