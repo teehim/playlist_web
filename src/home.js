@@ -16,6 +16,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import GroupWorkOutlinedIcon from '@material-ui/icons/GroupWorkOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
+import { serverUrl } from './settings';
 
 const useStyles = theme => ({
     root: {
@@ -46,6 +47,10 @@ const useStyles = theme => ({
         'margin-bottom': '10px',
         backgroundColor: theme.palette.background.paper
     },
+    result_item: {
+        'margin-bottom': '10px',
+        backgroundColor: theme.palette.background.paper
+    },
     playlist_avatar: {
         width: '50px',
         height: '50px',
@@ -65,8 +70,35 @@ class Home extends React.Component {
         super(props);
         this.state = { 
             access_token: this.props.location.state? this.props.location.state.access_token: '',
-            user: this.props.location.state? this.props.location.state.user: null
+            user: this.props.location.state? this.props.location.state.user: null,
+            playlist: null,
+            cluster_result: null
         };
+    }
+
+    clusterPlaylist() {
+        const url = serverUrl + "/cluster_playlist"
+        data = {
+            id: this.state.playlist.id,
+            token: this.state.access_token
+        }
+        fetch(url, {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            return response.json()
+        })
+        .then((resp) => {
+            this.setState({ cluster_result: resp.playlists })
+        })
+        .catch((error) => {
+            console.log(error, "catch the hoop")
+        })
     }
 
     render() {
@@ -95,7 +127,10 @@ class Home extends React.Component {
                                 return (
                                     <ListItem 
                                         className={classes.playlist_item}
-                                        onClick={() => this.setState({ playlist: playlist })}
+                                        onClick={() => this.setState({ 
+                                            playlist: playlist,
+                                            cluster_result: null
+                                        })}
                                         button
                                     >
                                         <ListItemAvatar>
@@ -125,10 +160,45 @@ class Home extends React.Component {
                                 {this.state.playlist.name}
                             </Typography>
                             <List className={classes.actionlist}>
-                                <ListItem className={classes.action_item} button>
+                                <ListItem 
+                                    className={classes.action_item} 
+                                    onClick={this.clusterPlaylist}
+                                    button
+                                >
                                     <GroupWorkOutlinedIcon style={{ fontSize: 35, 'margin-right': 10 }} />
                                     <ListItemText primary='Cluster Playlist'/>
                                 </ListItem>
+                            </List>
+                        </Grid>
+                        :''
+                    }
+                    {
+                        this.state.cluster_result?
+                        <Grid item xs={3}>
+                            <Typography variant="h4">
+                                Results
+                            </Typography>
+                            <List className={classes.playlist}>
+                                {this.state.cluster_result.map((playlist) => {
+                                    return (
+                                        <ListItem 
+                                            className={classes.result_item}
+                                            onClick={() => this.setState({ 
+                                                playlist: playlist 
+                                            })}
+                                            button
+                                        >
+                                            <ListItemText primary={playlist.name} secondary={playlist.track_counts + ' Songs'} />
+                                            <ListItemSecondaryAction>
+                                            <ListItemSecondaryAction>
+                                                <IconButton>
+                                                    <ArrowForwardIosIcon/>
+                                                </IconButton>
+                                            </ListItemSecondaryAction>
+                                            </ListItemSecondaryAction>
+                                        </ListItem>
+                                    );
+                                })}
                             </List>
                         </Grid>
                         :''
