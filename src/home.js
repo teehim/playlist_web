@@ -75,7 +75,7 @@ class Home extends React.Component {
                                     <ListItem className={classes.playlist_item} button>
                                         <ListItemAvatar>
                                             <Avatar
-                                                src={playlist.images.url}
+                                                src={playlist.images[0].url}
                                                 variant='square'
                                                 className={classes.playlist_avatar}
                                             />
