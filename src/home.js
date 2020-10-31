@@ -78,7 +78,7 @@ class Home extends React.Component {
 
     clusterPlaylist() {
         const url = serverUrl + "/cluster_playlist"
-        data = {
+        const data = {
             id: this.state.playlist.id,
             token: this.state.access_token
         }
