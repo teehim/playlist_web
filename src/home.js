@@ -94,7 +94,7 @@ class Home extends React.Component {
             return response.json()
         })
         .then((resp) => {
-            this.setState({ cluster_result: resp.playlists })
+            this.setState({ cluster_playlists: resp.playlists })
         })
         .catch((error) => {
             console.log(error, "catch the hoop")
@@ -162,7 +162,7 @@ class Home extends React.Component {
                             <List className={classes.actionlist}>
                                 <ListItem 
                                     className={classes.action_item} 
-                                    onClick={this.clusterPlaylist}
+                                    onClick={this.clusterPlaylist.bind(this)}
                                     button
                                 >
                                     <GroupWorkOutlinedIcon style={{ fontSize: 35, 'margin-right': 10 }} />
@@ -179,7 +179,7 @@ class Home extends React.Component {
                                 Results
                             </Typography>
                             <List className={classes.playlist}>
-                                {this.state.cluster_result.map((playlist) => {
+                                {this.state.cluster_playlists.map((playlist) => {
                                     return (
                                         <ListItem 
                                             className={classes.result_item}
