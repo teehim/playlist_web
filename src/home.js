@@ -33,9 +33,6 @@ const useStyles = theme => ({
     name: {
         'margin-right': '15px'
     },
-    playlist_grid: {
-        'margin-left': '30px'
-    },
     playlist: {
         width: '100%',
         maxWidth: 480,
@@ -102,6 +99,10 @@ class Home extends React.Component {
         })
     }
 
+    createPlaylist() {
+
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -119,11 +120,11 @@ class Home extends React.Component {
                             </Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={3} className={classes.playlist_grid}>
-                        <Typography variant="h4">
+                    <Grid item xs={3}>
+                        <Typography variant="h4" style={{ 'margin-left': '35px' }}>
                             Playlists
                         </Typography>
-                        <List className={classes.playlist}>
+                        <List className={classes.playlist} style={{ 'margin-left': '35px' }}>
                             {this.state.user? this.state.user.playlists.map((playlist) => {
                                 return (
                                     <ListItem 
@@ -211,6 +212,14 @@ class Home extends React.Component {
                                 Tracks
                             </Typography>
                             <List className={classes.playlist}>
+                                <ListItem 
+                                        className={classes.action_item} 
+                                        onClick={this.createPlaylist.bind(this)}
+                                        button
+                                    >
+                                    <GroupWorkOutlinedIcon style={{ fontSize: 35, 'margin-right': 10 }} />
+                                    <ListItemText primary='Create Playlist'/>
+                                </ListItem>
                                 {this.state.track_list.map((track) => {
                                     return (
                                         <ListItem 
