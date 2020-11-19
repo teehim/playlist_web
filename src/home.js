@@ -115,6 +115,7 @@ class Home extends React.Component {
         }
         fetch(url, {
             method: "post",
+            headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json"
             },
