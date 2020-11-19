@@ -72,7 +72,8 @@ class Home extends React.Component {
             access_token: this.props.location.state? this.props.location.state.access_token: '',
             user: this.props.location.state? this.props.location.state.user: null,
             playlist: null,
-            cluster_playlists: null
+            cluster_playlists: null,
+            track_list: null
         };
     }
 
@@ -94,7 +95,6 @@ class Home extends React.Component {
             return response.json()
         })
         .then((resp) => {
-            console.log(resp)
             this.setState({ cluster_playlists: resp.playlists })
         })
         .catch((error) => {
@@ -185,7 +185,7 @@ class Home extends React.Component {
                                         <ListItem 
                                             className={classes.result_item}
                                             onClick={() => this.setState({ 
-                                                playlist: playlist 
+                                                track_list: playlist.tracks
                                             })}
                                             button
                                         >
@@ -197,6 +197,30 @@ class Home extends React.Component {
                                                 </IconButton>
                                             </ListItemSecondaryAction>
                                             </ListItemSecondaryAction>
+                                        </ListItem>
+                                    );
+                                })}
+                            </List>
+                        </Grid>
+                        :''
+                    }
+                    {
+                        this.state.track_list?
+                        <Grid item xs={3}>
+                            <Typography variant="h4">
+                                Tracks
+                            </Typography>
+                            <List className={classes.playlist}>
+                                {this.state.track_list.map((track) => {
+                                    return (
+                                        <ListItem 
+                                            className={classes.result_item}
+                                            // onClick={() => this.setState({ 
+                                            //     playlist: playlist 
+                                            // })}
+                                            button
+                                        >
+                                            <ListItemText primary={track.name} secondary={track.artist} />
                                         </ListItem>
                                     );
                                 })}
