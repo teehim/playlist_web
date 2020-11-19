@@ -14,6 +14,7 @@ import {
 from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import GroupWorkOutlinedIcon from '@material-ui/icons/GroupWorkOutlined';
+import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 import { serverUrl } from './settings';
@@ -70,6 +71,7 @@ class Home extends React.Component {
             user: this.props.location.state? this.props.location.state.user: null,
             playlist: null,
             cluster_playlists: null,
+            cluster_playlist: null,
             track_list: null
         };
     }
@@ -100,7 +102,33 @@ class Home extends React.Component {
     }
 
     createPlaylist() {
-
+        const pl_tracks = this.state.cluster_playlist.tracks
+        let track_ids = []
+        pl_tracks.forEach(track => {
+            track_ids.push(track.id)
+        });
+        const url = serverUrl + "/create_playlist"
+        const data = {
+            name: this.state.cluster_playlist.name,
+            token: this.state.access_token,
+            track_ids: track_ids
+        }
+        fetch(url, {
+            method: "post",
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            return response.json()
+        })
+        .then((resp) => {
+            console.log(resp)
+        })
+        .catch((error) => {
+            console.log(error, "catch the hoop")
+        })
     }
 
     render() {
@@ -131,7 +159,7 @@ class Home extends React.Component {
                                         className={classes.playlist_item}
                                         onClick={() => this.setState({ 
                                             playlist: playlist,
-                                            cluster_result: null
+                                            cluster_playlists: null
                                         })}
                                         button
                                     >
@@ -186,7 +214,8 @@ class Home extends React.Component {
                                         <ListItem 
                                             className={classes.result_item}
                                             onClick={() => this.setState({ 
-                                                track_list: playlist.tracks
+                                                track_list: playlist.tracks,
+                                                cluster_playlist: playlist
                                             })}
                                             button
                                         >
@@ -217,7 +246,7 @@ class Home extends React.Component {
                                         onClick={this.createPlaylist.bind(this)}
                                         button
                                     >
-                                    <GroupWorkOutlinedIcon style={{ fontSize: 35, 'margin-right': 10 }} />
+                                    <AddOutlinedIcon style={{ fontSize: 35, 'margin-right': 10 }} />
                                     <ListItemText primary='Create Playlist'/>
                                 </ListItem>
                                 {this.state.track_list.map((track) => {
