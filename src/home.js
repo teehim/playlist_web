@@ -95,6 +95,7 @@ class Home extends React.Component {
             return response.json()
         })
         .then((resp) => {
+            console.log(resp)
             this.setState({ cluster_playlists: resp.playlists })
         })
         .catch((error) => {
