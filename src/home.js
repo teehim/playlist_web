@@ -111,7 +111,8 @@ class Home extends React.Component {
         const data = {
             name: this.state.cluster_playlist.name,
             token: this.state.access_token,
-            track_ids: track_ids
+            track_ids: track_ids,
+            user_id: this.state.user.id
         }
         fetch(url, {
             method: "post",
