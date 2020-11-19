@@ -72,7 +72,7 @@ class Home extends React.Component {
             access_token: this.props.location.state? this.props.location.state.access_token: '',
             user: this.props.location.state? this.props.location.state.user: null,
             playlist: null,
-            cluster_result: null
+            cluster_playlists: null
         };
     }
 
@@ -91,7 +91,6 @@ class Home extends React.Component {
             body: JSON.stringify(data)
         })
         .then((response) => {
-            console.log(response)
             return response.json()
         })
         .then((resp) => {
@@ -175,7 +174,7 @@ class Home extends React.Component {
                         :''
                     }
                     {
-                        this.state.cluster_result?
+                        this.state.cluster_playlists?
                         <Grid item xs={3}>
                             <Typography variant="h4">
                                 Results
