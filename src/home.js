@@ -85,6 +85,7 @@ class Home extends React.Component {
         fetch(url, {
             method: "post",
             crossDomain:true,
+            mode: 'no-cors',
             headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json"
@@ -118,6 +119,7 @@ class Home extends React.Component {
         fetch(url, {
             method: "post",
             crossDomain:true,
+            mode: 'no-cors',
             headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json"
