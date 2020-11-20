@@ -151,10 +151,10 @@ class Home extends React.Component {
                         </Box>
                     </Grid>
                     <Grid item xs={3}>
-                        <Typography variant="h4" style={{ 'margin-left': '35px' }}>
+                        <Typography variant="h4" style={{ 'margin-left': '10px' }}>
                             Playlists
                         </Typography>
-                        <List className={classes.playlist} style={{ 'margin-left': '35px' }}>
+                        <List className={classes.playlist} style={{ 'margin-left': '10px' }}>
                             {this.state.user? this.state.user.playlists.map((playlist) => {
                                 return (
                                     <ListItem 
