@@ -161,7 +161,8 @@ class Home extends React.Component {
                                         className={classes.playlist_item}
                                         onClick={() => this.setState({ 
                                             playlist: playlist,
-                                            cluster_playlists: null
+                                            cluster_playlists: null,
+                                            track_list: null
                                         })}
                                         button
                                     >
