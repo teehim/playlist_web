@@ -173,7 +173,10 @@ class Home extends React.Component {
                                             />
                                         </ListItemAvatar>
                                         <ListItemText primary={playlist.name} secondary={playlist.track_counts + ' Songs'} />
-                                        <ListItemSecondaryAction>
+                                        <ListItemSecondaryAction onClick={() => this.setState({ 
+                                            playlist: playlist,
+                                            cluster_playlists: null
+                                        })}>
                                             <ListItemSecondaryAction>
                                                 <IconButton>
                                                     <ArrowForwardIosIcon/>
