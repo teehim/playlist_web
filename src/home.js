@@ -225,12 +225,16 @@ class Home extends React.Component {
                                             button
                                         >
                                             <ListItemText primary={playlist.name} secondary={playlist.track_counts + ' Songs'} />
-                                            <ListItemSecondaryAction>
-                                            <ListItemSecondaryAction>
-                                                <IconButton>
-                                                    <ArrowForwardIosIcon/>
-                                                </IconButton>
-                                            </ListItemSecondaryAction>
+                                            <ListItemSecondaryAction
+                                                onClick={() => this.setState({ 
+                                                    track_list: playlist.tracks,
+                                                    cluster_playlist: playlist
+                                                })}>
+                                                <ListItemSecondaryAction>
+                                                    <IconButton>
+                                                        <ArrowForwardIosIcon/>
+                                                    </IconButton>
+                                                </ListItemSecondaryAction>
                                             </ListItemSecondaryAction>
                                         </ListItem>
                                     );
