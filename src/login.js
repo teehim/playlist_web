@@ -81,6 +81,7 @@ class Login extends React.Component {
                             Sign in
                         </Typography>                      
                         <SpotifyLogin className={classes.submit} clientId={clientId}
+                            scope={"user-read-email playlist-modify-public playlist-modify-private playlist-read-private playlist-read-collaborative"}
                             redirectUri={redirectUri}
                             onSuccess={this.onSuccess.bind(this)}
                             onFailure={this.onFailure}/>
